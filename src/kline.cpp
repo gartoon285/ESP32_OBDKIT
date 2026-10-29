@@ -197,7 +197,18 @@ static bool kline_start_session() {
 /* ── slow init ───────────────────────────────────────────────────────────── */
 
 static bool kline_slow_init() {
+
+    KLINE_SERIAL.begin(KLINE_BAUD, SERIAL_8N1, KLINE_RX_PIN, KLINE_TX_PIN);
+    
+    const uint8_t close_session_kline[]={0x72, 0x05, 0x00, 0xF1, 0x98};
+    Serial.printf("[kline] tx: 72 05 00 F1 98\n");
+    
+    KLINE_SERIAL.write(close_session_kline, sizeof(close_session_kline));
+    KLINE_SERIAL.flush();
+    
+    delay(100);
     KLINE_SERIAL.end();
+
     pinMode(KLINE_TX_PIN, OUTPUT);
 
     digitalWrite(KLINE_TX_PIN, LOW);
