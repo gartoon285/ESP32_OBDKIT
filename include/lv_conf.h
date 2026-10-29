@@ -50,8 +50,8 @@
 /*----------------
  * Perf monitor (FPS / CPU% overlay, bottom-right). Set both to 0 for release.
  *----------------*/
-#define LV_USE_SYSMON        1
-#define LV_USE_PERF_MONITOR  1
+#define LV_USE_SYSMON        0
+#define LV_USE_PERF_MONITOR  0
 #define LV_USE_PERF_MONITOR_POS LV_ALIGN_BOTTOM_RIGHT
 
 /*----------------

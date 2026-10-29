@@ -15,7 +15,6 @@
 
 #include "display.h"
 #include "touch.h"
-#include "wdt.h"
 
 static lv_obj_t* s_coord_label = nullptr;
 static lv_obj_t* s_cursor      = nullptr;
@@ -72,13 +71,9 @@ void setup() {
     delay(200);
     Serial.println("\n[CAL] touch-calibration build");
 
-    wdt_init();
-
     display_lvgl_init();
     build_touch_test_ui();
 
-    // Hardware probe before calibration: catches a stuck IRQ or dead SPI
-    // (which otherwise masquerades as "calibration finishes with one tap").
     touch_diag();
 
     // Always run the interactive calibration in this build, then test it live.
@@ -89,7 +84,6 @@ void setup() {
 }
 
 void loop() {
-    wdt_feed();
     lv_timer_handler();
     delay(5);
 }
